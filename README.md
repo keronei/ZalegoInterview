@@ -1,3 +1,3 @@
 # ZalegoInterview
 
-Find the backend api's in main/src/zalego_api with the final apk file
+Find the backend api's in app/src/main/apis  with the final apk file
