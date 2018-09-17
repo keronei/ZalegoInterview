@@ -207,10 +207,27 @@ Using Volley Library to make HTTP requests remotely.
                     public void onResponse(String response) {
 showProgress(false);
 
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                try {
 
-startActivity(new Intent(SignUp.this,LoginActivity.class));
 
+                            JSONObject jsonResponse = new JSONObject(response);
+                            String myObjAsString = jsonResponse.getString("status");
+                            String myObjAsStringreadable = jsonResponse.getString("data");
+                            //Compare what the server has sent to know is the user is to be taken to next activity
+                            if (myObjAsString.equals("0")) {
+
+
+                                Toast.makeText(SignUp.this, myObjAsStringreadable, Toast.LENGTH_LONG).show();
+
+                            }else{
+                                startActivity(new Intent(SignUp.this,LoginActivity.class));  startActivity(new Intent(SignUp.this,LoginActivity.class));
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
