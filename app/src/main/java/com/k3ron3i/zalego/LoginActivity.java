@@ -212,15 +212,27 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-showProgress(false);
-Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                     showProgress(false);
 
-if(response=="ok"){
-    startActivity(new Intent(LoginActivity.this,MainActivity.class));
-}else{
-    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-}
+                    try {
 
+
+                            JSONObject jsonResponse = new JSONObject(response);
+                            String myObjAsString = jsonResponse.getString("status");
+
+                            if (myObjAsString.equals("0")) {
+
+                                //Compare what the server has sent to know is the user is to be taken to next activity
+                                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            }else{
+                                Toast.makeText(LoginActivity.this, "Login Invalid", Toast.LENGTH_LONG).show();
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
